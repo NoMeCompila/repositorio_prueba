@@ -1,0 +1,67 @@
+{% extends 'index.html' %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block titulo %}
+        apps instaladas
+    {% endblock titulo %}
+</head>
+<body>
+    <main>
+        {% block body %}
+        <div class="container">
+            <div class="well">
+                <h1 id="tituloListas">Especificacion Detallada</h1>
+            </div>
+            <br>
+            {% if  programs %}
+            
+            <div class="table-responsive-sm">
+                <table class="table table-light table-hover table-striped">
+                    <thead >
+                        <div class="well">
+                            <a href="{% url 'index' %}"><button class="btn btn-dark" style="margin-bottom: 10px;">Volver</button></a>
+                        </div>
+                        <div class = "anotacion">
+                                <p>
+                                    Los programas que tienen "None" como valor de alguno de sus campos se debe a que el sistema operativo los borra automamáticamente  
+                                </p>
+                        </div>
+                        <tr class="bg-info table-success">
+                            <th>Programa</th>
+                            <th>Version</th>
+                            <th>Fecha de Instalacion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for prog in programs %}
+                        <tr>
+                            <td>{{prog.nombre}}</td>
+                            <td>{{prog.version}}</td>
+                            <td>{{prog.fecha_install}}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            {% for cant in cantidad|slice:"1" %}
+                            <td id ="cantidad">Total de programas instalados: {{cant.cantidad}}</td>
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                    
+                </table>
+            </div>
+        </div>
+        {% else %}
+        <h1 style="text-align:center;">no hay programas instalados</h1>
+        <div style="text-align:center;">
+            <a href="javascript:history.back()"><button class="btn btn-primary" style="margin-bottom: 10px;">Volver</button></a>
+        </div>
+        {% endif %}
+        </div>       
+        {% endblock body %}
+    </main>
+</body>
+</html>
