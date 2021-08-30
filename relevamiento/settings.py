@@ -86,7 +86,15 @@ WSGI_APPLICATION = 'relevamiento.wsgi.application'
 
 
 # Database
+
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
+
+# https://auth-db176.hostinger.com/index.php?db=u551789018_relevamiento
+# BASE: u551789018_relevamiento 
+# user: u551789018_agus_fer 
+# Pass: Chizzo1991 
+# host:185.201.11.212
 
 DATABASES = {
     'default': {
