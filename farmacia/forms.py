@@ -2,7 +2,7 @@ from django import forms
 from django.forms.widgets import Widget
 #from django.db import forms
 #from django-autocomplete-light import 
-from .models import  Provincia, Programa, Localidad  #Farmacia,
+from .models import  Fcia, Provincia, Programa, Localidad  #Farmacia,
 
 class LocalidadActForm(forms.ModelForm):
     class Meta:
@@ -157,3 +157,35 @@ class ProvinciaActForm(forms.ModelForm):
             'estado' : 'estado de la provincia (Activar/Desactivar)'
         }
 
+
+
+
+
+
+
+
+
+
+
+
+class FciaForm(forms.ModelForm):
+    
+    class Meta:
+        # en la subclase Meta del ModelForm se indica el modelo al cual pertenece
+        # el nombre de los campos que deben aparecer
+        # y los widgets que sirven para darle estilos al formulario
+        model = Fcia
+        
+        fields = ['nro_cliente','nombre_facia','id_localidad']
+
+        widgets = {
+            'nro_cliente': forms.TextInput(attrs={'class': 'form-control'}),
+            'nombre_facia': forms.TextInput(attrs={'class': 'form-control'}),
+            'id_localidad.descripcion': forms.TextInput(attrs={'class': 'form-control'})
+        }
+
+        labels = {
+            'nro_cliente': 'número de cliente',
+            'nombre_facia': 'nombre de la farmacia',
+            'id_localidad.descripcion': 'localidad a la que pertenece'
+        }
