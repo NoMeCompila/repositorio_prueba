@@ -17,7 +17,8 @@ from .forms import (LocalidadForm,
                     ProvinciaForm, 
                     ProgramaActForm, 
                     ProvinciaActForm,
-                    LocalidadActForm)
+                    LocalidadActForm,
+                    FciaForm)
 
 from .models import (Pc_Farmacia,
                     PC_detalles,
@@ -336,3 +337,11 @@ class probando_tabla_2(TemplateView):
 
 class Crear_usuario(TemplateView):
     template_name = 'farmacia/agregar_usuario.html'
+
+
+#------------------------------------------------------------------------------------------------------
+class add_fcia(CreateView):
+    template_name = 'farmacia/crud_fcias/agregar_fcia.html'
+    model = Fcia
+    success_url = reverse_lazy('farmacia:lista_farmacias_nav')
+    form_class = FciaForm

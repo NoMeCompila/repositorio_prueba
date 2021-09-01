@@ -5,6 +5,7 @@ from django.urls import path
 from django.contrib.auth.decorators import login_required
 # from django.urls import reverse_lazy
 from .views import (ProgramasInstalados,
+    add_fcia,
     probando_tabla_2,
     PruebaModel,
     vista_especifica,
@@ -64,4 +65,6 @@ urlpatterns = [
     path('data-json/',login_required(PruebaModel.as_view()), name = 'data-json'),
     path('probando_tabla_2/',login_required(probando_tabla_2.as_view()), name = 'probando_tabla_2'),
     path('programas_instalados/',login_required(ProgramasInstalados.as_view()), name = 'programas_instalados'),
-] 
+    path('agregar_fcia/',login_required(add_fcia.as_view()), name = 'agregar_fcia'),
+]
+#farmacia/crudfcias/agregar_fcia.html
