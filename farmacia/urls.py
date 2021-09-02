@@ -72,3 +72,4 @@ urlpatterns = [
     path('activar_fcia/<int:pk>',login_required(ActivarFcia.as_view()), name  = 'activar_fcia')
 ]
 #farmacia/crudfcias/agregar_fcia.html  list_inactive_fcias
+
