@@ -6,13 +6,15 @@ from django.db import models
 from django.db.models import query
 from django.db.models.base import Model
 from django.http.response import HttpResponse
+from django.urls.base import reverse
 from django.views.generic.base import RedirectView, View
 from django.views.generic.edit import CreateView
 from django.contrib import messages
 
 
 
-from .forms import (LocalidadForm, 
+from .forms import (FciaActForm,
+                    LocalidadForm, 
                     ProgramaForm, 
                     ProvinciaForm, 
                     ProgramaActForm, 
@@ -332,16 +334,24 @@ class probando_tabla_2(TemplateView):
     template_name = 'farmacia/probando_tabla_2.html'
 
 
-
-
-
 class Crear_usuario(TemplateView):
     template_name = 'farmacia/agregar_usuario.html'
 
 
-#------------------------------------------------------------------------------------------------------
+#---------------------------CRUD FCIAS---------------------------------------------------------------------------
 class add_fcia(CreateView):
     template_name = 'farmacia/crud_fcias/agregar_fcia.html'
     model = Fcia
     success_url = reverse_lazy('farmacia:lista_farmacias_nav')
     form_class = FciaForm
+
+class list_inactive_fcias(ListView):
+    template_name = 'farmacia/crud_fcias/lista_fcias_desactivadas.html'
+    model = Fcia
+    context_object_name = 'fcias'
+
+class ActivarFcia(UpdateView):
+    model = Fcia
+    template_name = 'farmacia/crud_fcias/agregar_fcia.html'
+    form_class = FciaActForm
+    success_url = reverse_lazy('farmacia:lista_farmacias_nav')

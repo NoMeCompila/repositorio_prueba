@@ -181,3 +181,22 @@ class FciaForm(forms.ModelForm):
                 'nombre_facia': 'nombre de la farmacia',
                 'id_localidad.descripcion': 'localidad a la que pertenece'
             }
+
+#Form para actualizar estado de una fcia
+class FciaActForm(forms.ModelForm):
+    class Meta:
+
+        model = Fcia
+        
+        fields = ['estado']
+
+        def __init__(self,*args, **kwargs):
+            super().__init__(*args, **kwargs)
+
+            self.fields['estados'].widget.attrs.update({
+                'class': 'form-control'
+            })
+
+        labels = {
+            'estado' : 'estado de la Fcia (Activo/Inatcivo)'
+        }

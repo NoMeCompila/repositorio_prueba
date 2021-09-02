@@ -87,6 +87,7 @@ class Localidad(models.Model):
 
 
 # Tabla para Farmacias 
+fcia_status =[(1,"Desactivar"),(0,"Activar")]
 class Fcia(models.Model):
 
     nro_cliente  = models.IntegerField("Número de Cliente", default = 1 ,null = False, blank = False, primary_key=True)
@@ -95,7 +96,7 @@ class Fcia(models.Model):
     id_localidad = models.ForeignKey(Localidad, on_delete = models.CASCADE)
     #ip = models.ForeignKey(Pc_Farmacia, on_delete = models.CASCADE)
     #ip = models.CharField(max_length=256, blank=True,null=True,default="192.168.0.")
-    estado = models.IntegerField(null=False, blank=False,choices=localidad_status,default=1) # en este caso el estado activo es = 0 inactivo = 1
+    estado = models.IntegerField(null = False, blank = False, choices = fcia_status, default = 0) # en este caso el estado activo es = 0 inactivo = 1
     def __str__(self):
         return self.nombre_fcia
 

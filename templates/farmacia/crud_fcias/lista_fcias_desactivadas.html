@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         {% block titulo %}
-        lista-farmacias
+        farmacias-desactivadas
         {% endblock titulo %}
     </title>
 </head>
@@ -17,20 +17,20 @@
         {% block body %}
         <div class="container">
             <div class="container">
-            {% block tituloh1 %}
+            {% comment %} {% block tituloh1 %}
             {% for far in  fcias|slice:":1" %}
             <div class="well">
                 <h1 id="tituloListas">Farmacias de {{far.id_localidad.descripcion}}</h1>
             </div>
             
             {% endfor %}
-            {% endblock tituloh1 %}
+            {% endblock tituloh1 %} {% endcomment %}
 
             {% block contenido %}
                 {% comment %}  {% endcomment %}
                 {% if fcias %}
             </div>
-            <div class="row d-flex justify-content-center ">
+            <div class="row d-flex justify-content-center " style="margin-top: 20px;">
                     <div class="col-md-9">
                     <form action="{% url 'farmacia:buscar_fcia' %}" method="GET">
                         {% csrf_token %}
@@ -49,7 +49,7 @@
                     <br>
                      <a href="javascript:history.back()"><button class="btn btn-primary" style="margin-bottom: 10px;">Volver</button></a>
                      <a href="{% url 'farmacia:agregar_fcia' %}"><button button class="btn btn-success" style="margin-bottom: 10px;">agregar fcia</button></a>
-                     <a href="{% url 'farmacia:lista-fcias-desactivadas' %}"><button button class="btn btn-dark" style="margin-bottom: 10px;">fcias desactivadas</button></a>
+                     <!-- <a href="#"><button button class="btn btn-dark" style="margin-bottom: 10px;">fcias desactivadas</button></a> -->
                     
                     <div class="tab"> 
                     <div class="table-responsive-sm">
@@ -66,7 +66,7 @@
                             </thead>
                             <tbody>
                                 {% for far in fcias %}
-                                    {% if far.estado == 0 %}
+                                    {% if far.estado == 1 %}
 
                                         <tr>
                                             <td>{{far.nro_cliente}}</td>
@@ -79,7 +79,7 @@
                                             <a class="button"  href="{% url 'farmacia:especificacion_pc' %}?lang={{far.nro_cliente}}">
                                             <span class="fas fa-desktop"></span></a>                                               
                                         </td>
-                                        <td><a href="{% url 'farmacia:activar_fcia' far.nro_cliente %}"><button class="btn-danger">Desactivar</button></a></td>
+                                        <td><a href="{% url 'farmacia:activar_fcia' far.nro_cliente %}"><button class="btn-success">Activar</button></a></td>
                                         <!-- <td>
                                             {% if far.estado == 0 %}
                                                 activo
