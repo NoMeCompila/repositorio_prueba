@@ -4,7 +4,9 @@ from django.urls import path
 
 from django.contrib.auth.decorators import login_required
 # from django.urls import reverse_lazy
-from .views import (ProgramasInstalados,
+from .views import (
+    delete_fcia,
+    ProgramasInstalados,
     ActivarFcia,
     list_inactive_fcias,
     add_fcia,
@@ -69,7 +71,8 @@ urlpatterns = [
     path('programas_instalados/',login_required(ProgramasInstalados.as_view()), name = 'programas_instalados'),
     path('agregar_fcia/',login_required(add_fcia.as_view()), name = 'agregar_fcia'),
     path('lista-fcias-desactivadas/',login_required(list_inactive_fcias.as_view()), name = 'lista-fcias-desactivadas'),
-    path('activar_fcia/<int:pk>',login_required(ActivarFcia.as_view()), name  = 'activar_fcia')
+    path('activar_fcia/<int:pk>',login_required(ActivarFcia.as_view()), name  = 'activar_fcia'),
+    path('borrar_fcia/<int:pk>',login_required(delete_fcia.as_view()), name  = 'borrar_fcia')
 ]
-#farmacia/crudfcias/agregar_fcia.html  list_inactive_fcias
+#farmacia/crudfcias/agregar_fcia.html  list_inactive_fcias delete_fcia
 
