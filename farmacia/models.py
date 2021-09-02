@@ -74,7 +74,7 @@ localidad_status=[(1,"Activar"),(0,"Desactivar")]
 
 class Localidad(models.Model):
 
-    id_localidad = models.IntegerField("id_localidad", null = False, blank = False, primary_key=True)
+    id_localidad = models.IntegerField("Localidad", null = False, blank = False, primary_key=True)
     id_provincia_id = models.ForeignKey(Provincia, on_delete = models.CASCADE)
     descripcion = models.CharField("descripcion", max_length = 256, null = False, blank = False)
     estado = models.IntegerField(null=False, blank=False,choices=localidad_status,default=1)
@@ -86,16 +86,16 @@ class Localidad(models.Model):
         verbose_name_plural = 'localidades'
 
 
-# Tabla para Farm
+# Tabla para Farmacias 
 class Fcia(models.Model):
 
-    nro_cliente  = models.IntegerField("id_farmacia", default = 1 ,null = False, blank = False, primary_key=True)
+    nro_cliente  = models.IntegerField("Número de Cliente", default = 1 ,null = False, blank = False, primary_key=True)
     nombre_facia = models.CharField("nombre_farmacia", max_length = 256, null = True, blank  = True)
     #direccion = models.CharField("direccion", max_length = 256, null = False, blank = False)
     id_localidad = models.ForeignKey(Localidad, on_delete = models.CASCADE)
     #ip = models.ForeignKey(Pc_Farmacia, on_delete = models.CASCADE)
     #ip = models.CharField(max_length=256, blank=True,null=True,default="192.168.0.")
-
+    estado = models.IntegerField(null=False, blank=False,choices=localidad_status,default=1) # en este caso el estado activo es = 0 inactivo = 1
     def __str__(self):
         return self.nombre_fcia
 

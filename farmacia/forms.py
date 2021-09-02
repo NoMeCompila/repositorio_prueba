@@ -4,6 +4,8 @@ from django.forms.widgets import Widget
 #from django-autocomplete-light import 
 from .models import  Fcia, Provincia, Programa, Localidad  #Farmacia,
 
+
+# Formulario para activar una localidad
 class LocalidadActForm(forms.ModelForm):
     class Meta:
 
@@ -22,6 +24,7 @@ class LocalidadActForm(forms.ModelForm):
             'estado' : 'estado de la localidad (Activar/Desactivar)'
         }
 
+# Formulario para agregar localidad //eliminar probablemente 
 class LocalidadForm(forms.ModelForm):
     
     class Meta:
@@ -30,26 +33,21 @@ class LocalidadForm(forms.ModelForm):
         # y los widgets que sirven para darle estilos al formulario
         model = Localidad
         
-        fields = ['id_localidad','descripcion','id_provincia_id']
+        fields = ['id_localidad','descripcion','id_provincia_id','estado']
 
         widgets = {
             'id_localidad': forms.TextInput(attrs={'class': 'form-control'}),
             'id_provincia_id.descripcion':forms.TextInput(attrs={'class': 'form-control'}),
-            'descripcion': forms.TextInput(attrs={'class': 'form-control'})
+            'descripcion': forms.TextInput(attrs={'class': 'form-control'}),
+            'estado': forms.TextInput(attrs={'class': 'form-control'})
 
         }
-
-        # def __init__(self,*args, **kwargs):
-        #     super().__init__(*args, **kwargs)
-
-        #     self.fields['id_provincia_id'].widget.attrs.update({
-        #         'class': 'form-control'
-        #     })
 
         labels = {
             'id_localidad': 'id de la localidad',
             'id_provincia_id.descripcion': 'provincia a la que pertenece',
-            'descripcion': 'nombre de la localidad'
+            'descripcion': 'nombre de la localidad',
+            'estado':'0=activo y 1 = inactivo'
         }
 
 #Formulario para agregar/actualizar un programa
@@ -137,7 +135,7 @@ class ProgramaForm(forms.ModelForm):
         }
 
 
-
+# Formulario para activar provincias
 class ProvinciaActForm(forms.ModelForm):
     
     class Meta:
@@ -158,16 +156,7 @@ class ProvinciaActForm(forms.ModelForm):
         }
 
 
-
-
-
-
-
-
-
-
-
-
+# Formulario para agregar farmacias
 class FciaForm(forms.ModelForm):
     
     class Meta:
@@ -184,8 +173,11 @@ class FciaForm(forms.ModelForm):
             'id_localidad.descripcion': forms.TextInput(attrs={'class': 'form-control'})
         }
 
+
+        
         labels = {
-            'nro_cliente': 'número de cliente',
-            'nombre_facia': 'nombre de la farmacia',
-            'id_localidad.descripcion': 'localidad a la que pertenece'
-        }
+            
+                'nro_cliente': 'número de cliente',
+                'nombre_facia': 'nombre de la farmacia',
+                'id_localidad.descripcion': 'localidad a la que pertenece'
+            }
