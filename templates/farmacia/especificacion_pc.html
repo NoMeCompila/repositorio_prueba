@@ -1,7 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,91 +42,55 @@
     }
   </style>
 </head>
-
 <body>
   <main>
-
     {% block nav %}
-
     <!--- NAVBAR SESION INICIADA-->
     <nav class="container-navbar">
-
-
-
       {% if user.is_authenticated %}
-
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{% url 'index' %}">
-
           <img src="{% static 'img/logo.ico' %}" width="150" height="70" class="d-inline-block align-top" alt="">
-
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-
-
             <li class="nav-item me-3 me-lg-1 active">
               <a class="nav-link" href="{% url 'index' %}">
                 <span style="font-family: sans-serif;"><i class="fas fa-home fa-lg"></i></span>Inicio
               </a>
             </li>
-
-
-
-
             <li class="nav-item">
               <a class="nav-link" href="{% url 'farmacia:listar_provincias' %}">Provincias</a>
             </li>
-
             <li class="nav-item">
               <a class="nav-link" href="{% url 'farmacia:lista_programas' %}">Programas</a>
             </li>
-
             <li class="nav-item">
               <a class="nav-link" href="{% url 'farmacia:lista_farmacias_nav' %}">Farmacias</a>
             </li>
-            <!--
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'farmacia:especificacion_pc'%}">PC</a>
-            </li>-->
-
             <li class="nav-item">
               <a class="nav-link" href="#">Script</a>
             </li>
-
-
-
-
           </ul>
-
           <!-- Center elements -->
           <ul class="navbar-nav flex-row d-none d-md-flex">
-
-
           </ul>
           <!-- Center elements -->
-
           <li class="nav-item">
             <span>
               <i class="far fa-user"></i>
               <a>{{user.username}}</a>
             </span>
-
           </li>
           <div>
             <a class="nav-link" href="{% url 'logout' %}"><button class="btn btn-dark">Salir</button></a>
           </div>
-
-
-
         </div>
       </nav>
-
       <!--NAVBAR PARA LOS QUE NO ESTÁN LOGEADOS-->
       {% else %}
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -149,108 +112,74 @@
       {% endif %}
       {% endblock nav %}
       <div class="container ">
-
         <br>
         <div class="container-body">
-
           {% for pc in computadoras|slice:":1" %}
           <h1 style="text-align:center; ">Lista de PC's de la Farmacia: {{pc.nro_cliente.nombre_facia}}</h1>
           {% endfor %}
-          <div style="margin-top: 30px; margin-bottom: 10px;">
-            <button class="btn btn-success btn-sm"><a
-                style="color: cornsilk; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"
-                href="#">Nuevo relevamiento</a></button>
-            <button class="btn btn-success btn-sm"><a
-                style="color: cornsilk; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"
-                href="#">Ver programas</a></button>
-            <a style="color: cornsilk; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"
-              href="{% url 'index' %}"><button class="btn btn-success btn-sm">Volver</button></a>
-          </div>
           {% block body %}
-
           <!--==================================================================================================-->
 
           <div class="row">
-            
               <div class="card-deck ">
+              {% if computadoras %}
+          </div>
                 {% for pc in computadoras%}
                 <div class="col-md-4">
-                
-                
-
                   <div class="card bg-light mb-3">
-
-
                     <div class="card-header">
                       <h5 class="card-title">MÁQUINA: {{ pc.nombre_pc }} </h5>
+                      <a href="#"><button class="btn btn-primary">ver programas</button></a>
                     </div>
-
                     <div class="card-body">
                       <!--<button class="btn btn-primary">ver programas</button> -->
-
-
                       <table class="compus ">
                         <thead>
-
                           <tr>
                             <th>Fecha de Relevamiento: {{ pc.fecha_relevamiento }}</th>
                             <th></th>
-
                           </tr>
-
                           <tr>
                             <th></th>
                             <th></th>
                           </tr>
                         </thead>
                         <tbody>
-
                           <tr class="parent">
                             <td><a href="#">Informacion IP:</a></td>
                             <td></td>
-
                           </tr>
                           <tr>
                             <td>IP privada:</td>
                             <td>{{pc.ip}}</td>
-
                           </tr>
                           <tr>
                             <td>IP publica:</td>
                             <td>{{pc.ip_publica}}</td>
-
                           </tr>
-
                           <tr class="parent">
                             <td><a href="#">Sistema</a></td>
                             <td></td>
-
                           </tr>
                           <tr>
                             <td>Arquitectura y SO:</td>
                             <td>{{pc.arquitectura_so}}</td>
-
                           </tr>
                           <tr>
                             <td>Version: </td>
                             <td>{{pc.version_so}}</td>
-
                           </tr>
-
                           <tr class="parent">
                             <td><a href="#">Hardware</a></td>
                             <td></td>
-
                           </tr>
                           <tr>
                             <td>Tipo de maquina:</td>
                             <td>{{pc.tipo_maquina}}</td>
-
                           </tr>
                           <tr>
                             <td>Procesador: </td>
                             <td>{{pc.procesador}}</td>
-
                           </tr>
                           <tr>
                             <td>Cores fisicos:</td>
@@ -264,91 +193,73 @@
                           <tr class="parent">
                             <td> <a href="#">Memoria RAM</a> </td>
                             <td></td>
-
                           </tr>
                           <tr>
                             <td>Total:</td>
                             <td>{{pc.RAM_tot}}</td>
-
                           </tr>
                           <tr>
                             <td>Usada:</td>
                             <td>{{pc.RAM_usada}}</td>
-
                           </tr>
                           <tr>
                             <td>Disponible:</td>
                             <td>{{pc.RAM_disponible}}</td>
-
                           </tr>
                           <tr>
                             <td>Porcentaje usado:</td>
                             <td>{{pc.RAM_procentaje_disponible}}</td>
-
                           </tr>
                           <!--================Memoria en Disco=============================-->
                           <tr class="parent">
                             <td> <a href="#">Disco C:</a></td>
                             <td></td>
-
                           </tr>
                           <tr>
                             <td>Total:</td>
                             <td>{{pc.espacio_tot_C}}</td>
-
                           </tr>
                           <td>Usado:</td>
                           <td>{{pc.espacio_usado_C}}</td>
-
                           </tr>
                           <tr>
                             <td>Libre:</td>
                             <td>{{pc.espacio_disponible_C}}</td>
-
                           </tr>
                           <tr>
                             <td>Procentaje utilizado:</td>
                             <td>{{pc.procentaje_disponible_C}}</td>
-
                           </tr>
-
                           <tr class="parent">
                             <td> <a href="#">Disco D:</a></td>
                             <td></td>
-
                           </tr>
                           <tr>
                             <td>Total:</td>
                             <td>{{pc.espacio_tot_D}}</td>
-
                           </tr>
                           <td>Usado:</td>
-                          <td>{{pc.espacio_usado_D}}</td>
-
+                          <td>{{pc.espacio_usado_D}}GB</td>
                           </tr>
                           <tr>
                             <td>Libre:</td>
-                            <td>{{pc.espacio_disponible_D}}</td>
-
+                            <td>{{pc.espacio_disponible_D}}GB</td>
                           </tr>
                           <tr>
                             <td>Procentaje utilizado:</td>
-                            <td>{{pc.procentaje_disponible_D}}</td>
-
+                            <td>{{pc.procentaje_disponible_D}}%</td>
                           </tr>
-
-
-
                         </tbody>
-
                       </table>
-
                     </div>
                   </div>
-                  
-                
               </div>
               {% endfor %}
+              {% else %}
+              
+              <h1 style="text-align:center;">No hay PCs para mostrar!</h1>
+        
+              {% endif %}
             </div>
           </div>
           <!--==================================================================================================-->
@@ -362,20 +273,16 @@
         <div class="col-md-12">
           <div class="copyright-text">
             <p>© JUFEC S.A.
-
             </p>
             <p>
               Todos los Derechos Reservados
             </p>
           </div>
-
-
         </div>
       </div>
     </div>
   </div>
 </footer>
-
 
 <script>
 //variable que contiene a todos los elementos con la misma clase que se pide
@@ -404,20 +311,5 @@ var divs = document.getElementsByClassName("compus");
       item.className += " open";
   }
 }
-
 </script>
 </html>
-
-
-{% comment %} Buenas, gracias por tomarse las molestia, lo que necesitamos en concreto es  que el archivo txt tenga un nombre 
-fijo en todas las máquinas y que su contenido sea el número de cliente.
-
-ejemplo:
-nombre_txt -> contenido
-nro_cliente.txt -> 3303
-nro_cliente.txt -> 2986
-nro_cliente.txt -> 3183
-...
-
-y así con todas las farmacias.
-Desde ya muchas gracias. {% endcomment %}

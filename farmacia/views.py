@@ -1,15 +1,8 @@
 #from relevamiento.farmacia.models import Farmacia
 #from relevamiento.settings import SWEETIFY_SWEETALERT_LIBRARY
-from PIL import Image
-from django import urls
-from django.db import models
-from django.db.models import query
-from django.db.models.base import Model
 from django.http.response import HttpResponse
-from django.urls.base import reverse
-from django.views.generic.base import RedirectView, View
+from django.views.generic.base import  View
 from django.views.generic.edit import CreateView
-from django.contrib import messages
 
 
 
@@ -198,7 +191,7 @@ class ListarFcias(ListView):
         farmacia = self.request.GET.get("lang")
         
         
-        #Cambair esta parte del codigo para que compare el id de provincia con el de localidad y desp con el de farmacia
+        
         if farmacia:
             qs = qs.filter(id_localidad = farmacia)
         return qs
@@ -222,7 +215,7 @@ class vista_PC(ListView):
     second_model = Fcia
     template_name = 'farmacia/especificacion_pc.html'
     context_object_name = 'computadoras'
-    #queryset = Pc_Farmacia.objects.select_related().all()
+    
     
 
     def get_queryset(self):
@@ -238,9 +231,7 @@ class vista_programas(ListView):
     context_object_name = 'programas'
     queryset = Programas_instalados.objects.all()
 
-# def get_image(request):
-#     im = Image.open(r"C:\Users\System-Pc\Desktop\lion.png") 
-#     return HttpResponse(image_data, content_type="static/img")
+
 
 def imagen():
     with open("mensaje.jpg", "rb") as f:
@@ -253,17 +244,7 @@ class BuscarFcia(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('q')
-        #filtro para la busqueda se puede buscar por provincia, ciudad, nombre de farmacia, direccion, ip
-        #if query == 'ç':  
-           
-        #    return test_view(request)
-        #else:
         return Fcia.objects.filter(nro_cliente__icontains=query) or Fcia.objects.filter(nombre_facia__icontains=query) or Fcia.objects.filter(id_localidad__descripcion__icontains=query) or Fcia.objects.filter(id_localidad__id_provincia_id__descripcion__icontains=query) 
-##import sweetify
-
-#def test_view(request):
-#    sweetify.success(request, 'You did it', text='Good job! You successfully showed a SweetAlert message', persistent='Hell yeah')
-#    return RedirectView('/')
 
 class ListarFciasNav(ListView):
     model = Fcia
@@ -299,24 +280,22 @@ class vista_especifica(ListView):
         return qs
 
 class ProgramasInstalados(ListView):
-    model = probando_programas
+    model = Programas_instalados
     second_model = Cantidad_Programas
     template_name = 'farmacia/programas_instalados.html'
     
     def get_context_data(self, *args, **kwargs): 
-        programs = probando_programas.objects.all()
+        programs = Programas_instalados.objects.all()
         cantidad = Cantidad_Programas.objects.all()
         
         return {'programs': programs, 'cantidad': cantidad}
 
     def get_queryset(self):
-        qs = probando_programas.objects.all() # qs igual
+        qs = Programas_instalados.objects.all() # qs igual
         programa = self.request.GET.get("lang")
         if programa:
             qs = qs.filter(pc_id = programa)
         return qs
-
-
 
 from .models import Pc_Farmacia
 from django.core import serializers
@@ -333,10 +312,8 @@ class PruebaModel(View):
 class probando_tabla_2(TemplateView):
     template_name = 'farmacia/probando_tabla_2.html'
 
-
 class Crear_usuario(TemplateView):
     template_name = 'farmacia/agregar_usuario.html'
-
 
 #---------------------------CRUD FCIAS---------------------------------------------------------------------------
 # Agregar Fcia

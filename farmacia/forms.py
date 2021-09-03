@@ -1,25 +1,16 @@
 from django import forms
-from django.forms.widgets import Widget
-#from django.db import forms
-#from django-autocomplete-light import 
-from .models import  Fcia, Provincia, Programa, Localidad  #Farmacia,
+from .models import  Fcia, Provincia, Programa, Localidad
 
 
-# Formulario para activar una localidad
 class LocalidadActForm(forms.ModelForm):
     class Meta:
-
         model = Localidad
-        
         fields = ['estado']
-
         def __init__(self,*args, **kwargs):
             super().__init__(*args, **kwargs)
-
             self.fields['estados'].widget.attrs.update({
                 'class': 'form-control'
             })
-
         labels = {
             'estado' : 'estado de la localidad (Activar/Desactivar)'
         }
