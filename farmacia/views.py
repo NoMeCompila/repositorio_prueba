@@ -3,9 +3,6 @@
 from django.http.response import HttpResponse
 from django.views.generic.base import  View
 from django.views.generic.edit import CreateView
-
-
-
 from .forms import (FciaActForm,
                     LocalidadForm, 
                     ProgramaForm, 
@@ -14,7 +11,6 @@ from .forms import (FciaActForm,
                     ProvinciaActForm,
                     LocalidadActForm,
                     FciaForm)
-
 from .models import (Pc_Farmacia,
                     PC_detalles,
                     Fcia, 
@@ -33,16 +29,10 @@ from django.views.generic import (TemplateView, #Vista basada en clase para rend
                                 DeleteView) #Vista basada en clase para renderizar un template de Borrado
 from django.urls import reverse_lazy
 
-# # Vista basada en clase para renderizar un template simple
-# class Inicio(TemplateView):
-#     template_name = 'index.html'
-
 # Vista que renderiza el login
 class Login(TemplateView):
     template_name = 'farmacia/login.html' # indicar la ruta desde la raiz sin especificar esta misma
-
 #-------------------------- CRUD de ciudades --------------------------
-
 #------------------vista para listar las localidades
 class ListarLoc(ListView):
     model = Localidad
@@ -56,7 +46,6 @@ class ListarLoc(ListView):
         if provincia:
             qs = qs.filter(id_provincia_id = provincia)
         return qs
-
 
 # Vista basada en clase para listar los datos de las localidades desactivadas
 class ListarLocDes(ListView):
@@ -215,9 +204,6 @@ class vista_PC(ListView):
     second_model = Fcia
     template_name = 'farmacia/especificacion_pc.html'
     context_object_name = 'computadoras'
-    
-    
-
     def get_queryset(self):
         qs = Pc_Farmacia.objects.select_related('nro_cliente').all() # qs igual
         farmacia = self.request.GET.get("lang")
@@ -227,10 +213,17 @@ class vista_PC(ListView):
 
 class vista_programas(ListView):
     model = Programas_instalados
+    second_model = Pc_Farmacia
     template_name = 'farmacia/programas_pc.html'
     context_object_name = 'programas'
     queryset = Programas_instalados.objects.all()
 
+    def get_queryset(self):
+        qs = Programas_instalados.objects.select_related('pc_id').all() # qs igual
+        pc = self.request.GET.get("lang")
+        if pc:
+            qs = qs.filter(pc_id=pc)
+        return qs
 
 
 def imagen():

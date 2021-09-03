@@ -14,7 +14,9 @@
         {% block body %}
         <div class="container">
             <div class="well">
-                <h1 id="tituloListas">Especificacion Detallada</h1>
+                {% comment %} {% for program in programs|slice:":1" %}
+                    <h1 style="text-align:center; ">Lista de Programas instalados en: "{{program.pc_id.nombre_pc }}"</h1>
+                {% endfor %} {% endcomment %}
             </div>
             <br>
             {% if  programs %}
