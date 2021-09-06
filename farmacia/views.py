@@ -277,11 +277,7 @@ class ProgramasInstalados(ListView):
     second_model = Cantidad_Programas
     template_name = 'farmacia/programas_instalados.html'
     
-    def get_context_data(self, *args, **kwargs): 
-        programs = Programas_instalados.objects.all()
-        cantidad = Cantidad_Programas.objects.all()
-        
-        return {'programs': programs, 'cantidad': cantidad}
+    context_object_name = 'programs'
 
     def get_queryset(self):
         qs = Programas_instalados.objects.all() # qs igual
@@ -315,13 +311,15 @@ class add_fcia(CreateView):
     model = Fcia
     success_url = reverse_lazy('farmacia:lista_farmacias_nav')
     form_class = FciaForm
+    
+
+
 
 # Listar Fcias Inactivas
 class list_inactive_fcias(ListView):
     template_name = 'farmacia/crud_fcias/lista_fcias_desactivadas.html'
     model = Fcia
     context_object_name = 'fcias'
-
 
 # Actualizar Estado Fcia
 class ActivarFcia(UpdateView):

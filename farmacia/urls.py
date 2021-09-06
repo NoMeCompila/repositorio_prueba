@@ -65,6 +65,7 @@ urlpatterns = [
     path('data-json/',login_required(PruebaModel.as_view()), name = 'data-json'),
     path('probando_tabla_2/',login_required(probando_tabla_2.as_view()), name = 'probando_tabla_2'),
     path('programas_instalados/',login_required(ProgramasInstalados.as_view()), name = 'programas_instalados'),
+   
     #----------------------------------------Ruteo de CRUD  Para Farmacias----------------------------------------
     path('agregar_fcia/',login_required(add_fcia.as_view()), name = 'agregar_fcia'),
     path('lista-fcias-desactivadas/',login_required(list_inactive_fcias.as_view()), name = 'lista-fcias-desactivadas'),

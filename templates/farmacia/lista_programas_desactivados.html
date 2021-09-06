@@ -43,7 +43,7 @@
                   <td>{{programa.nombre}}</td>
                   <td>{{programa.version}}</td>
                   <td>{{programa.fecha_install}}</td>
-                  <td><a href="{% url 'farmacia:activar_programa' programa.programa %}"><button class="btn btn-success">activar</button><a href="{% url 'farmacia:eliminar_programa' programa.programa %}"> <button class="btn btn-danger">eliminar</button></a></a></td>
+                  <td> <a href="{% url 'farmacia:activar_programa' programa.programa %}"> <button class="btn btn-success">activar</button><a href="{% url 'farmacia:eliminar_programa' programa.programa %}"> <button class="btn btn-danger">eliminar</button></a></a></td>
                 </tr>
                 {% endif %}
                 {% endfor %}

@@ -129,7 +129,8 @@
                   <div class="card bg-light mb-3">
                     <div class="card-header">
                       <h5 class="card-title">MÁQUINA: {{ pc.nombre_pc }} </h5>
-                      <a href="{% url 'farmacia:programas_instalados' %}?lang={{pc.ip}}"><button class="btn btn-primary">ver programas</button></a>
+                      <!-- href="{% url 'farmacia:especificacion_pc' %}?lang={{fcia.nro_cliente}}"> -->
+                      <a href="{% url 'farmacia:programas_instalados' %}?lang={{pc.ip}}"> <button class="btn btn-primary">ver programas</button></a>
                     </div>
                     <div class="card-body">
                       <!--<button class="btn btn-primary">ver programas</button> -->
