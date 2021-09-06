@@ -1,5 +1,6 @@
+from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
-
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 # Create your models here.
 program_status = [(0,"Desactivar"),(1,"Activar")]
 # Clase que crea una tabla con los datos para los programas instalados
@@ -189,4 +190,56 @@ class Cantidad_Programas(models.Model):
     tabla_programas = models.ForeignKey(Pc_Farmacia,on_delete=models.CASCADE,null=True)
     cantidad = models.IntegerField("cantidad de programas", null=False, blank=False)
     class Meta:
-        verbose_name = 'cantidad_programas'
+        verbose_name = 'cantidad_programas' 
+
+
+#-------------------------------MODELO PARA USUARIOS PREDEFINIDOS DE DJANGO---------------------------------
+
+
+# Tabla de Usuarios de Django
+class MainUser(AbstractBaseUser):
+    usuario = models.CharField("Nombre de Usuario", unique = True, max_length = 100)
+    nombre = models.CharField("Nombres", max_length = 256, null = True, blank = True)
+    apellido = models.CharField("Apellidos", max_length = 256, null = True, blank = True)
+    usuario_activo = models.BooleanField(default = True)
+    usuario_admin = models.BooleanField(default = False)
+
+    USERNAME_FIELD = 'usuario'
+    REQUIRED_FIELDS = ['usuario','nombre','apellido']
+    
+    def __str__(self):
+        return f'Usuario: {self.usuario}'
+
+    def has_perm(self,perm,obj=None):
+        return True
+    
+    def has_module_perms(self,app,label):
+        return True
+
+    @property
+    def is_staff(self):
+        return self.usuario_admin
+
+
+class UsuarioManager(BaseUserManager):
+    def create_user(self,usuario,nombre,apellido,password=None):
+        if not usuario:
+            raise ValueError('Nombre de usuario obligatorio')
+        usuario = self.model(
+            usuario = usuario,
+            nombre=nombre,
+            apellido=apellido
+        )
+        usuario.set_password(password)
+        usuario.save()
+        return usuario
+    def create_super_user(self,usuario,nombre,apellido,password):
+        usuario = self.create_user(
+            usuario = usuario,
+            nombre=nombre,
+            apellido=apellido,
+            password=password
+        )
+        usuario.usuario_administrador = True
+        usuario.save()
+        return usuario
