@@ -3,7 +3,8 @@
 from django.http.response import HttpResponse
 from django.views.generic.base import  View
 from django.views.generic.edit import CreateView
-from .forms import (FciaActForm,
+from .forms import (FciaActForm, 
+                    FormularioUsuarios,
                     LocalidadForm, 
                     ProgramaForm, 
                     ProvinciaForm, 
@@ -11,7 +12,8 @@ from .forms import (FciaActForm,
                     ProvinciaActForm,
                     LocalidadActForm,
                     FciaForm)
-from .models import (Pc_Farmacia,
+from .models import (Usuario,
+                    Pc_Farmacia,
                     PC_detalles,
                     Fcia, 
                     Programa, 
@@ -304,7 +306,7 @@ class probando_tabla_2(TemplateView):
 class Crear_usuario(TemplateView):
     template_name = 'farmacia/agregar_usuario.html'
 
-#---------------------------CRUD FCIAS---------------------------------------------------------------------------
+#------------------------------------------------------CRUD FCIAS------------------------------------------------------
 # Agregar Fcia
 class add_fcia(CreateView):
     template_name = 'farmacia/crud_fcias/agregar_fcia.html'
@@ -312,9 +314,6 @@ class add_fcia(CreateView):
     success_url = reverse_lazy('farmacia:lista_farmacias_nav')
     form_class = FciaForm
     
-
-
-
 # Listar Fcias Inactivas
 class list_inactive_fcias(ListView):
     template_name = 'farmacia/crud_fcias/lista_fcias_desactivadas.html'
@@ -332,3 +331,15 @@ class ActivarFcia(UpdateView):
 class delete_fcia(DeleteView):
     model = Fcia
     success_url = (reverse_lazy('farmacia:lista_farmacias_nav'))
+
+#------------------------------------------------------CRUD Usuarios------------------------------------------------------
+class ListarUsuarios(ListView):
+    model = Usuario
+    template_name = 'usuario/users_list.html'
+    context_object_name = 'users'
+
+class RegistroUsuario(CreateView):
+    model = Usuario
+    form_class = FormularioUsuarios
+    template_name = 'usuarios/create_user.html'
+    success_url = reverse_lazy()

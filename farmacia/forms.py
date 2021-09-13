@@ -1,6 +1,8 @@
 from django import forms
-from .models import  Fcia, Provincia, Programa, Localidad
-
+from django.db.models import fields
+from django.forms import widgets
+from .models import  Fcia, Provincia, Programa, Localidad, Usuario
+from django.contrib.auth.forms import AuthenticationForm
 
 class LocalidadActForm(forms.ModelForm):
     class Meta:
@@ -382,3 +384,65 @@ class FciaForm(forms.ModelForm):
             'nombre_facia': 'nombre de la farmacia',
             'id_localidad.descripcion': 'localidad a la que pertenece'
         }
+
+
+
+
+#Formulario para los usuarios
+class FormularioLogin(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(FormularioLogin, self).__init__(*args, **kwargs)
+        self.fields['usuario'].widget.attrs['class'] = 'form-control'
+        self.fields['usuario'].widget.attrs['placeholder'] = 'Nombre de Usuario'
+        self.fields['password'].widget.attrs['class'] = 'form-control'
+        self.fields['password'].widget.attrs['placeholder'] = 'Contraseña'
+
+#Formulario de registro de usuarios en la base de datos
+
+class FormularioUsuarios(forms.ModelForm):
+    
+    password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput(
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Ingrese su contraseña',
+            'id': 'password1',
+            'required':'required'
+        }
+    ))
+
+    password2 = forms.CharField(label='Confirmar Contraseña', widget=forms.PasswordInput(
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Confirmar contraseña ',
+            'id': 'password2',
+            'required':'required'
+        }
+    ))
+
+    class Meta:
+        model = Usuario
+        fields = ('usuario','nombre','apellido')
+        widgets = {
+
+            'nombre': forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Ingrese su nombre',
+                }
+            ),
+
+            'apellido':forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Ingrese su apellido',
+                }
+            ),
+
+            'usuario':forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Ingrese su usuario',
+                }
+            ),
+        }
+         
