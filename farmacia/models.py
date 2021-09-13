@@ -220,7 +220,7 @@ class MainUser(AbstractBaseUser):
     def is_staff(self):
         return self.usuario_admin
 
-
+    
 class UsuarioManager(BaseUserManager):
     def create_user(self,usuario,nombre,apellido,password=None):
         if not usuario:
